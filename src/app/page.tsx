@@ -10,14 +10,6 @@ export default function Home() {
   const [isClient, setIsClient] = useState(false);
   const [todos, setTodos] = useState<Todo[]>([]);
 
-  /* useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  if (!isClient) {
-    return null;
-  } */
-
   const fetchTodosHandler = async () => {
     try {
       const data = await fetchTodos();
@@ -27,21 +19,29 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    setIsClient(true);
+    fetchTodosHandler();
+  }, []);
+
+  if (!isClient) {
+    return null;
+  }
+
   const handleAdd = async (title: string) => {
     await addTodo(title);
+    fetchTodosHandler();
   };
 
   const handleDelete = async (id: string) => {
     await deleteTodo(id);
+    fetchTodosHandler();
   };
 
   const handleUpdate = async (id: string, data: Partial<Todo>) => {
     await updateTodo(id, data);
-  };
-
-  useEffect(() => {
     fetchTodosHandler();
-  }, []);
+  };
 
   return (
     <div>
