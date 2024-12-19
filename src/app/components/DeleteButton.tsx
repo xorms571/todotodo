@@ -7,7 +7,7 @@ interface TodoItemProps {
 const DeleteButton: React.FC<TodoItemProps> = ({ todoId, onDelete }) => {
   const router = useRouter();
   const deleteHandler = () => {
-    if (window.confirm("Are you sure you want to delete this item?")) {
+    if (window.confirm("해당 일정을 삭제하시겠습니까?")) {
       onDelete(todoId);
       router.push('/')
     }
