@@ -5,10 +5,10 @@ type AddButtonProps = {
   todos: Todo[];
 }
 const AddButton = ({ todos }: AddButtonProps) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 375);
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth <= 768);
   const incompleteTodos = todos.filter((todo) => !todo.isCompleted);
   useEffect(() => {
-    const handleResize = () => setIsSmallScreen(window.innerWidth <= 375);
+    const handleResize = () => setIsSmallScreen(window.innerWidth <= 768);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);

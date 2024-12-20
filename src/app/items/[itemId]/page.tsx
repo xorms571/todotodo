@@ -18,6 +18,7 @@ import {
 import DeleteButton from "@/app/components/DeleteButton";
 import UpdateButton from "@/app/components/UpdateButton";
 import Header from "@/app/components/Header";
+
 export interface Todo {
   id: string;
   name: string;
@@ -26,6 +27,7 @@ export interface Todo {
   imageUrl: string | null;
   tenantId: string;
 }
+
 const TodoDetail = () => {
   const params = useParams();
   const itemId = params.itemId as string;
@@ -86,10 +88,9 @@ const TodoDetail = () => {
       setItem(updatedTodo);
       setIsEditing(false);
     } catch (error) {
-      console.error("Error updating todo:", error);
+      console.error(error);
     }
   };
-  
 
   const clickTextHandler = () => {
     setIsEditing(!isEditing);
@@ -162,8 +163,11 @@ const TodoDetail = () => {
         </div>
         <div className="memoImageContainer flex my-7 gap-7">
           <div
-            className="imageBox relative border-dashed border-2 overflow-hidden rounded-3xl w-5/12 flex justify-center items-center"
-            style={{ background: "#f8fafc" }}
+            className={`imageBox relative overflow-hidden rounded-3xl w-5/12 flex justify-center items-center`}
+            style={{
+              background: "#f8fafc",
+              border: item.imageUrl === '' ? "dashed 2px #cbd5e1" : "",
+            }}
           >
             <div className="absolute w-full h-full flex justify-center items-center">
               {item.imageUrl ? (

@@ -22,7 +22,7 @@ body {
 .detailContainer{
   height: calc(100vh - 62px)
 }
-@media (max-width: 744px) {
+@media (max-width: 1024px) {
   .todoListContainer{
     flex-direction: column;
   }
