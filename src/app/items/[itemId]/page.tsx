@@ -18,6 +18,7 @@ import {
 import DeleteButton from "@/app/components/DeleteButton";
 import UpdateButton from "@/app/components/UpdateButton";
 import Header from "@/app/components/Header";
+import loading from "@/app/images/loading.gif";
 
 export interface Todo {
   id: string;
@@ -112,8 +113,7 @@ const TodoDetail = () => {
     if (itemId) loadTodo();
   }, [itemId]);
 
-  if (loading) return <p>Loading...</p>;
-  if (!item) return <p>항목이 존재하지 않습니다.</p>;
+  if (!item) return !loading;
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
@@ -122,8 +122,10 @@ const TodoDetail = () => {
     if (!file) return;
     try {
       const imageUrl = await uploadImage(file);
-      const updatedData = { ...item, imageUrl };
-      await handleUpdate(item.id, updatedData);
+      if (item) {
+        const updatedData = { ...item, imageUrl };
+        await handleUpdate(item.id, updatedData);
+      }
     } catch (error) {
       console.error(error);
     }
@@ -143,6 +145,11 @@ const TodoDetail = () => {
   );
   return (
     <>
+      {loading ? (
+        <div className="relative z-10 w-screen h-screen bg-white bg-opacity-5 flex justify-center items-center">
+          {loading}
+        </div>
+      ) : null}
       <Header />
       <div
         className="detailContainer bg-white m-auto w-4/5"
@@ -166,7 +173,7 @@ const TodoDetail = () => {
             className={`imageBox relative overflow-hidden rounded-3xl w-5/12 flex justify-center items-center`}
             style={{
               background: "#f8fafc",
-              border: item.imageUrl === '' ? "dashed 2px #cbd5e1" : "",
+              border: item.imageUrl === null ? "dashed 2px #cbd5e1" : "",
             }}
           >
             <div className="absolute w-full h-full flex justify-center items-center">
