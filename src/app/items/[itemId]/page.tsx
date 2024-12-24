@@ -3,10 +3,11 @@ import { useEffect, useRef, useState } from "react";
 import {
   deleteTodo,
   fetchTodoDetail,
+  fetchTodos,
   updateTodo,
   uploadImage,
 } from "../../api/swagger";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import {
   checked,
   memo,
@@ -19,6 +20,7 @@ import DeleteButton from "@/app/components/DeleteButton";
 import UpdateButton from "@/app/components/UpdateButton";
 import Header from "@/app/components/Header";
 import loading from "@/app/images/loading.gif";
+import CheckBox from "@/app/components/CheckBox";
 
 export interface Todo {
   id: string;
@@ -41,13 +43,14 @@ const TodoDetail = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const paragraphRef = useRef<HTMLParagraphElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const [titleFix, setTitleFix] = useState<string>((item && item.name) || "");
   const loadTodo = async () => {
     setLoading(true);
     try {
       const data = await fetchTodoDetail(itemId);
       setItem(data);
       setText(data.memo || "");
+      setTitleFix(data.name || "")
     } catch (err) {
       console.error(err);
     } finally {
@@ -143,6 +146,18 @@ const TodoDetail = () => {
       onInput={adjustHeight}
     />
   );
+
+  const inputElement = (
+    <input
+      className="bg-transparent underline"
+      value={titleFix}
+      onChange={(e) => setTitleFix(e.target.value)}
+    />
+  );
+  const handleUpdate2 = async (id: string, data: Partial<Todo>) => {
+    await updateTodo(id, data);
+    setItem({ ...item, ...data });
+  };
   return (
     <>
       {loading ? (
@@ -165,8 +180,8 @@ const TodoDetail = () => {
           }}
           className="flex justify-center items-center gap-4 border-black w-full h-16 text-2xl rounded-3xl text-center leading-9"
         >
-          {item.isCompleted ? checked : uncheck}
-          <h2 className="underline">{item.name}</h2>
+          <CheckBox todo={item} onUpdate={handleUpdate2} />
+          {inputElement}
         </div>
         <div className="memoImageContainer flex my-7 gap-7">
           <div
@@ -245,6 +260,7 @@ const TodoDetail = () => {
             todo={item}
             onUpdate={handleUpdate}
             memo={text}
+            name={titleFix}
             isCompleted={item.isCompleted}
             updateType="memo"
           />
