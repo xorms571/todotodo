@@ -3,24 +3,17 @@ import { useEffect, useRef, useState } from "react";
 import {
   deleteTodo,
   fetchTodoDetail,
-  fetchTodos,
   updateTodo,
   uploadImage,
 } from "../../api/swagger";
-import { useParams, useRouter } from "next/navigation";
-import {
-  checked,
-  memo,
-  noimage,
-  photoeditbtn,
-  plusbtn,
-  uncheck,
-} from "@/app/images/img";
+import { useParams } from "next/navigation";
+import { memo, noimage, photoeditbtn, plusbtn } from "@/app/images/img";
 import DeleteButton from "@/app/components/DeleteButton";
 import UpdateButton from "@/app/components/UpdateButton";
 import Header from "@/app/components/Header";
-import loading from "@/app/images/loading.gif";
 import CheckBox from "@/app/components/CheckBox";
+import ZKZg from "@/app/images/ZKZg.gif";
+import Image from "next/image";
 
 export interface Todo {
   id: string;
@@ -50,7 +43,7 @@ const TodoDetail = () => {
       const data = await fetchTodoDetail(itemId);
       setItem(data);
       setText(data.memo || "");
-      setTitleFix(data.name || "")
+      setTitleFix(data.name || "");
     } catch (err) {
       console.error(err);
     } finally {
@@ -109,18 +102,15 @@ const TodoDetail = () => {
   }, [height]);
 
   useEffect(() => {
-    console.log(item && item.imageUrl);
-  }, [imageUrl]);
-
-  useEffect(() => {
     if (itemId) loadTodo();
   }, [itemId]);
 
-  if (!item) return !loading;
+  if (!item) return loading;
 
   const handleFileChange = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    setLoading(true)
     const file = event.target.files?.[0];
     if (!file) return;
     try {
@@ -131,6 +121,8 @@ const TodoDetail = () => {
       }
     } catch (error) {
       console.error(error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -147,24 +139,28 @@ const TodoDetail = () => {
     />
   );
 
+  const inputLength = Math.max(5, Math.min(titleFix.length || 1, 30));
   const inputElement = (
     <input
-      className="bg-transparent underline"
+      className="bg-transparent underline transition-all duration-200 ease-out"
       value={titleFix}
       onChange={(e) => setTitleFix(e.target.value)}
+      style={{ width: `${inputLength * 1.62}ch` }}
     />
   );
+
   const handleUpdate2 = async (id: string, data: Partial<Todo>) => {
     await updateTodo(id, data);
     setItem({ ...item, ...data });
   };
+
   return (
     <>
-      {loading ? (
-        <div className="relative z-10 w-screen h-screen bg-white bg-opacity-5 flex justify-center items-center">
-          {loading}
+      {loading && (
+        <div className="absolute z-10 w-full h-full bg-black bg-opacity-40 flex justify-center items-center">
+          <Image src={ZKZg} width={100} height={100} alt="loading"/>
         </div>
-      ) : null}
+      )}
       <Header />
       <div
         className="detailContainer bg-white m-auto w-4/5"
@@ -178,7 +174,7 @@ const TodoDetail = () => {
             border: "2px solid black",
             background: item.isCompleted ? "#ede9fe" : "#fff",
           }}
-          className="flex justify-center items-center gap-4 border-black w-full h-16 text-2xl rounded-3xl text-center leading-9"
+          className="flex px-4 gap-4 justify-center items-center border-black w-full h-16 text-2xl rounded-3xl text-center leading-9"
         >
           <CheckBox todo={item} onUpdate={handleUpdate2} />
           {inputElement}
