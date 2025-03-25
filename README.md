@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TodoTodo - Next.js Todo App with Swagger API Integration
 
-## Getting Started
+## 📜 Description
 
-First, run the development server:
+**TodoTodo**는 **Next.js**를 사용하여 만든 간단한 투두 리스트 애플리케이션입니다.  
+이 프로젝트는 **Swagger API**를 활용하여 데이터를 관리하고, Next.js를 학습하기 위한 목적으로 개발되었습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Next.js**: React 기반의 서버 사이드 렌더링(SSR)을 지원하는 프레임워크.
+- **Swagger API**: 외부 API를 사용하여 Todo 항목을 추가, 삭제 및 수정할 수 있습니다.
+- **Tailwind CSS**: UI 스타일링을 위한 CSS 프레임워크.
+- **TypeScript**: 타입 안정성을 제공하여 개발 효율성을 높였습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ 기술 스택
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Next.js** (15.1.2)
+- **React** (18.2.0)
+- **Tailwind CSS** (3.4.1)
+- **TypeScript** (5.2.2)
+- **Swagger** API Integration
+- **PostCSS**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🚀 기능
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **할 일 추가**: 사용자가 새로운 할 일을 입력하여 리스트에 추가할 수 있습니다.
+- **할 일 삭제**: 리스트에서 할 일을 삭제할 수 있습니다.
+- **할 일 수정**: 이미 추가된 할 일을 수정할 수 있습니다.
+- **Swagger API 연동**: 외부 Swagger API를 사용하여 할 일 데이터를 관리합니다.
