@@ -1,4 +1,5 @@
-# TodoTodo - Next.js Todo App with Swagger API Integration
+# TodoTodo
+Next.js Todo App with Swagger API Integration
 
 ## 📜 Description
 
