@@ -17,7 +17,6 @@
 - **Tailwind CSS** (3.4.1)
 - **TypeScript** (5.2.2)
 - **Swagger** API Integration
-- **PostCSS**
 
 ## 🚀 기능
 
