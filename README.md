@@ -6,11 +6,6 @@ Next.js Todo App with Swagger API Integration
 **TodoTodo**는 **Next.js**를 사용하여 만든 간단한 투두 리스트 애플리케이션입니다.  
 이 프로젝트는 **Swagger API**를 활용하여 데이터를 관리하고, Next.js를 학습하기 위한 목적으로 개발되었습니다.
 
-- **Next.js**: React 기반의 서버 사이드 렌더링(SSR)을 지원하는 프레임워크.
-- **Swagger API**: 외부 API를 사용하여 Todo 항목을 추가, 삭제 및 수정할 수 있습니다.
-- **Tailwind CSS**: UI 스타일링을 위한 CSS 프레임워크.
-- **TypeScript**: 타입 안정성을 제공하여 개발 효율성을 높였습니다.
-
 ## 🛠️ 기술 스택
 
 - **Next.js** (15.1.2)
